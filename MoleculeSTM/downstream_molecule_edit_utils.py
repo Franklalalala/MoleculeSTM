@@ -156,15 +156,15 @@ def load_molecule_models(args):
 
 
 def load_language_molecule_and_edit_models(args):
-    pretrained_SciBERT_folder = os.path.join(args.dataspace_path, 'pretrained_SciBERT')
-    text_tokenizer = AutoTokenizer.from_pretrained('allenai/scibert_scivocab_uncased', cache_dir=pretrained_SciBERT_folder)
-    text_model = AutoModel.from_pretrained('allenai/scibert_scivocab_uncased', cache_dir=pretrained_SciBERT_folder)
+    pretrained_SciBERT_folder = r'/root/moleculeSTM_data_model/model/scibert_scivocab_uncased'
+    text_tokenizer = AutoTokenizer.from_pretrained(pretrained_SciBERT_folder)
+    text_model = AutoModel.from_pretrained(pretrained_SciBERT_folder)
     text_dim = 768
 
     input_model_path = os.path.join(args.MoleculeSTM_model_dir, "text_model.pth")
     print("Loading from {}...".format(input_model_path))
     state_dict = torch.load(input_model_path, map_location='cpu')
-    text_model.load_state_dict(state_dict)
+    text_model.load_state_dict(state_dict, strict=False)
 
     """
     input_model_path = os.path.join(args.MoleculeSTM_model_dir, "molecule_model.pth")
